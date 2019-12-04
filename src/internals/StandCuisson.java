@@ -1,21 +1,24 @@
 package internals;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class StandCuisson {
 
-    private ArrayList<Client> clientsEnAttente;
-    private Cuisinier cuisinier;
+    private List<Client> clientsEnAttente;
 
-    public StandCuisson(Cuisinier cuisinier) {
-        this.cuisinier = cuisinier;
-    }
+    public StandCuisson() {}
 
-    public ArrayList<Client> getClientsEnAttente() {
+    public List<Client> getClientsEnAttente() {
         return clientsEnAttente;
     }
 
-    public void setClientsEnAttente(ArrayList<Client> clientsEnAttente) {
+    public void setClientsEnAttente(List<Client> clientsEnAttente) {
         this.clientsEnAttente = clientsEnAttente;
+    }
+
+    public synchronized void cuire(Client client) {
+        Cuisinier.cuire(client);
+        clientsEnAttente.remove(client);
+        notify();
     }
 }

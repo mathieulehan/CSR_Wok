@@ -14,7 +14,7 @@ public class Buffet {
         this.bacs.put(TypesBac.NOUILLES, new Bac(TypesBac.NOUILLES, 1000));
     }
 
-    private synchronized void seServir(Client client, TypesBac typeBac, Integer qteGrammes) {
+    public synchronized void seServir(Client client, TypesBac typeBac, Integer qteGrammes) {
         while(this.bacs.get(typeBac).getQuantiteGrammes() < qteGrammes) {}
         try { Thread.sleep(300); } catch(InterruptedException e) {}
         this.bacs.get(typeBac).prendrePortion(qteGrammes);
